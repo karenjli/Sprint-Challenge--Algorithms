@@ -95,60 +95,84 @@ class SortingRobot:
         return self._light == "ON"
 
     def sort(self):
-        """
-        Sort the robot's list.
-        """
-        # for i in range(len(self._list)):
-        # robot position
 
-        # move robot to the right position to start
-        # if it's the end of the list, returns the list
-        if self.move_right() == False:
-            return self._list
+        self.set_light_on()
 
-        # robot will compare the card at the position with the previous card
-        while True:
-            try:
-                print("Testing")
-                self.compare_and_move()
+        while self.light_is_on():
+            self.set_light_off()
 
-            except:
-                return self._list
+            while self.can_move_right():
+                # pick up the card
+                self.swap_item()
+                # move to the next right
+                self.move_right()
 
-    def compare_and_move(self):
-        # swap card if current card is smaller
-        if self.compare_item() == -1:
-            self.swap_item()
-        # move to the next card if the card is equal or bigger
-        elif self.compare_item() == 0:
-            self.sort()
-        elif self.compare_item() == 1:
-            self.sort()
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    # continue to the next position
+                    self.set_light_on()
 
-            # key = self._list[i]
+                # return to previous position, drop card, move right
+                self.move_left()
+                self.swap_item()
+                self.move_right()
 
-            # card to be compared
+            while self.can_move_left():
+                # pick up the item and move left
+                self.swap_item()
+                self.move_left()
 
-            # while j >= 0 and key < self._list[j]:
-            #     # swap
-            #     self._list[j+1] = self._list[j]
-            #     j -= 1
-            # self._list[j+1] = key
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    # continue to the next position
+                    self.set_light_on()
 
-
-# The below solution works but it doesn't follow all the rules. It is an insertion sort.
-# Uncomment it for testing
+                # return to previous position, drop card, move right
+                self.move_right()
+                self.swap_item()
+                self.move_left()
 
     # def sort(self):
-    #     for i in range(len(self._list)):
-    #         key = self._list[i]
+    #     """
+    #     Sort the robot's list.
+    #     """
+    #     # for i in range(len(self._list)):
+    #     # robot position
 
-    #         j = i-1
-    #         while j >= 0 and key < self._list[j]:
-    #             # swap
-    #             self._list[j+1] = self._list[j]
-    #             j -= 1
-    #         self._list[j+1] = key
+    #     # move robot to the right position to start
+    #     # if it's the end of the list, returns the list
+    #     if self.move_right() == False:
+    #         return self._list
+
+    #     # robot will compare the card at the position with the previous card
+    #     while True:
+    #         try:
+    #             print("Testing")
+    #             self.compare_and_move()
+
+    #         except:
+    #             return self._list
+
+    # def compare_and_move(self):
+    #     # swap card if current card is smaller
+    #     if self.compare_item() == -1:
+    #         self.swap_item()
+    #     # move to the next card if the card is equal or bigger
+    #     elif self.compare_item() == 0:
+    #         self.sort()
+    #     elif self.compare_item() == 1:
+    #         self.move_left()
+    #         self.sort()
+
+        # key = self._list[i]
+
+        # card to be compared
+
+        # while j >= 0 and key < self._list[j]:
+        #     # swap
+        #     self._list[j+1] = self._list[j]
+        #     j -= 1
+        # self._list[j+1] = key
 
 
 # if __name__ == "__main__":
@@ -162,5 +186,3 @@ class SortingRobot:
 
 #     robot.sort()
 #     print(robot._list)
-
-print(SortingRobot.sort([5, 4, 3, 2, 1]))
