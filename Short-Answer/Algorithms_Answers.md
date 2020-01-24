@@ -25,3 +25,5 @@ Step 2: Depending on the above outcome, we will select the median of the new ran
 In case 1, the median is 3. If the egg breaks, then anything between 3-5 levels will break. And the next search will focus on the 0-3. If the egg doesn't break on the 3th level, the last number to test will be 4. If the egg breaks on the 4th level, then f = 5; if it doesn't break, f=4.
 
 In case 2, the median is 7. If the egg breaks, then dropping the egg from anywhere above 7th floor will also break the egg. Therefore, the only number to test will be 6. If the egg doesn't break, then dropping an egg at anywhere below 7th floor will not break the egg. Therefore, the new range is 7-9. We will test the median of 7-9, which is 8. If the egg breaks on 8th floor, then f = 7. If the egg doesn't break on the 8th floor, then f = 9.
+
+The runtime of this problem is O(log n) because T(n) = T(n/2) +1. n is being divided everytime when we pick the median of n, and n is getting progressively smaller.

@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -96,17 +98,69 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # for i in range(len(self._list)):
+        # robot position
+
+        # move robot to the right position to start
+        # if it's the end of the list, returns the list
+        if self.move_right() == False:
+            return self._list
+
+        # robot will compare the card at the position with the previous card
+        while True:
+            try:
+                print("Testing")
+                self.compare_and_move()
+
+            except:
+                return self._list
+
+    def compare_and_move(self):
+        # swap card if current card is smaller
+        if self.compare_item() == -1:
+            self.swap_item()
+        # move to the next card if the card is equal or bigger
+        elif self.compare_item() == 0:
+            self.sort()
+        elif self.compare_item() == 1:
+            self.sort()
+
+            # key = self._list[i]
+
+            # card to be compared
+
+            # while j >= 0 and key < self._list[j]:
+            #     # swap
+            #     self._list[j+1] = self._list[j]
+            #     j -= 1
+            # self._list[j+1] = key
 
 
-if __name__ == "__main__":
-    # Test our your implementation from the command line
-    # with `python robot_sort.py`
+# The below solution works but it doesn't follow all the rules. It is an insertion sort.
+# Uncomment it for testing
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    # def sort(self):
+    #     for i in range(len(self._list)):
+    #         key = self._list[i]
 
-    robot = SortingRobot(l)
+    #         j = i-1
+    #         while j >= 0 and key < self._list[j]:
+    #             # swap
+    #             self._list[j+1] = self._list[j]
+    #             j -= 1
+    #         self._list[j+1] = key
 
-    robot.sort()
-    print(robot._list)
+
+# if __name__ == "__main__":
+#     # Test our your implementation from the command line
+#     # with `python robot_sort.py`
+
+#     l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+#          45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+
+#     robot = SortingRobot(l)
+
+#     robot.sort()
+#     print(robot._list)
+
+print(SortingRobot.sort([5, 4, 3, 2, 1]))
